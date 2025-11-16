@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build" // ← Вот эта строка важна
-  },
+  "dev": "vite",
+  "build": "vite build"
+},
   "dependencies": {
     "@tonconnect/ui-react": "^2.0.0",
     "react": "^18.2.0",
@@ -20,3 +20,4 @@
     "vite": "^4.4.0"
   }
 }
+
