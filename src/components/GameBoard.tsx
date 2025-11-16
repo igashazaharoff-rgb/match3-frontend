@@ -1,4 +1,3 @@
-`tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { findMatches, removeMatches, dropPieces } from '../utils/gameLogic';
 import DailyQuests from './DailyQuests';
@@ -83,65 +82,4 @@ const GameBoard = () => {
       [newBoard[selected.row][selected.col], newBoard[row][col]] = [newBoard[row][col], newBoard[selected.row][selected.col]];
       setBoard(newBoard);
 
-      const { toRemove, specialCells } = findMatches(newBoard);
-      if (toRemove.length > 0) {setRemoving(toRemove);
-        setTimeout(() => {
-          let updatedBoard = removeMatches(newBoard, toRemove, specialCells);
-          updatedBoard = dropPieces(updatedBoard);
-          setBoard(updatedBoard);
-          setRemoving([]);
-          playSound('match');
-
-          if (score + points >= target) {
-            setLevel(prev => prev + 1);
-            setTarget(prev => prev * 2);
-          }
-
-          // Сохранить прогресс
-          if (user) {
-            saveProgress({ score: score + points, level, energy: energy - 1 }, user.id);
-          }
-        }, 300);
-      } else {
-        [newBoard[selected.row][selected.col], newBoard[row][col]] = [newBoard[row][col], newBoard[selected.row][selected.col]];
-        setBoard(newBoard);
-        setEnergy(prev => prev + 1);
-      }
-    }
-    setSelected(null);
-  };
-
-  const renderCell = (colorIndex: number) => {
-    if (colorIndex === 6) return 'cell-bomb';
-    if (colorIndex === 7) return 'cell-rainbow';
-    return cell-${COLORS[colorIndex]};
-  };
-
-  return (
-    <div className="game-board-container">
-      <div className="score-board">
-        <div>Уровень: {level}</div>
-        <div>Счёт: {score}</div>
-        <div>Цель: {target}</div>
-        <div>Энергия: {energy}/5</div>
-      </div>
-      <div className="game-board">
-        {board.map((row, i) =>
-          row.map((colorIndex, j) => (
-            <div
-              key={${i}-${j}}
-              className={cell ${renderCell(colorIndex)} ${selected?.row === i && selected?.col === j ? 'selected' : ''} ${removing.some(c => c.row === i && c.col === j) ? 'removing' : ''}}
-              onClick={() => handleCellClick(i, j)}
-            />
-          ))
-        )}
-      </div>
-      <DailyQuests />
-      <Achievements />
-    </div>
-  );
-};
-
-export default GameBoard;
-        const points = toRemove.length * 10 + specialCells.length * 50;
-        setScore(prev => prev + points);
+      const { toRemove, specialCells } = find
