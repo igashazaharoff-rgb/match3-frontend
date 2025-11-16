@@ -1,0 +1,84 @@
+css
+.game-board-container {
+  text-align: center;
+}
+
+.score-board {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  width: 320px;
+  margin: 0 auto;
+}
+
+.cell {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cell-red { background-color: #ff6b6b; }
+.cell-blue { background-color: #4ecdc4; }
+.cell-green { background-color: #95e1d3; }
+.cell-yellow { background-color: #fffac8; }
+.cell-purple { background-color: #a78bfa; }
+.cell-orange { background-color: #f9a826; }
+
+.cell-bomb {
+  background: radial-gradient(circle, #ff4136, #b10e00);
+  border: 2px solid #ff851b;
+}
+
+.cell-rainbow {
+  background: linear-gradient(45deg, red, orange, yellow, green, blue, purple);
+  border: 2px solid white;
+}
+
+.cell.selected {
+  border: 2px solid white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.cell.removing {
+  animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.daily-quests, .achievements, .shop {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.quest, .achievement, .shop-item {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.completed {
+  background-color: #d4edda;
+}
+
+.unlocked {
+  color: green;
+}
+
+.locked {
+  color: gray;
+}
