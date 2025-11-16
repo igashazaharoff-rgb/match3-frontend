@@ -145,5 +145,4 @@ const GameBoard = () => {
   );
 };
 
-export default GameBoard;{`${i}-${j}`}
-              className={`cell ${renderCell(colorIndex)} ${selected?.row === i && selected?.col === j ? 'selected' : ''} ${removing.some(c => c.row === i && c.col === j) ? 'removing' : ''}`}
+export default GameBoard;
