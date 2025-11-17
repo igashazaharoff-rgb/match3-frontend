@@ -1,3 +1,4 @@
+//ts
 import { useEffect, useState } from 'react';
 
 declare global {
@@ -21,4 +22,5 @@ export const useTelegram = () => {
 
   return { user };
 };
+
 
