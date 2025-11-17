@@ -1,4 +1,4 @@
-//ts
+// src/hooks/useTelegram.ts
 import { useEffect, useState } from 'react';
 
 declare global {
@@ -9,18 +9,22 @@ declare global {
 
 export const useTelegram = () => {
   const [user, setUser] = useState<any>(null);
+  const [webApp, setWebApp] = useState<any>(null);
 
   useEffect(() => {
-    const tg = window.Telegram.WebApp;
-    tg.ready();
-    tg.expand();
+    // Проверь, что window.Telegram существует
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
 
-    if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-      setUser(tg.initDataUnsafe.user);
+      if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        setUser(tg.initDataUnsafe.user);
+      }
+
+      setWebApp(tg);
     }
   }, []);
 
-  return { user };
+  return { user, webApp };
 };
-
-
