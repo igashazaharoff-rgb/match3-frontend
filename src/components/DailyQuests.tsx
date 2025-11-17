@@ -1,4 +1,3 @@
-tsx
 import React, { useState, useEffect } from 'react';
 
 type Quest = {
@@ -40,7 +39,7 @@ const DailyQuests = () => {
     <div className="daily-quests">
       <h3>Ежедневные задания</h3>
       {quests.map(quest => (
-        <div key={quest.id} className={quest ${quest.completed ? 'completed' : ''}}>
+        <div key={quest.id} className={`quest ${quest.completed ? 'completed' : ''}`}>
           <div className="quest-title">{quest.title}</div>
           <div className="quest-desc">{quest.description}</div>
           <div className="quest-progress">
