@@ -40,8 +40,8 @@ const GameBoard = () => {
   }, [score, level, target, energy]);
 
   useEffect(() => {
-    moveSoundRef.current = new Audio('/sounds/move.mp3');
-    matchSoundRef.current = new Audio('/sounds/match.mp3');
+    //moveSoundRef.current = new Audio('/sounds/move.mp3');
+    //matchSoundRef.current = new Audio('/sounds/match.mp3');
   }, []);
 
   const generateBoard = () => {
@@ -146,3 +146,4 @@ const GameBoard = () => {
 };
 
 export default GameBoard;
+
