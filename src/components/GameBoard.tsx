@@ -8,14 +8,15 @@ import { useTelegram } from '../hooks/useTelegram';
 const BOARD_SIZE = 8;
 const COLORS = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
 
-const MAX_ENERGY = 50; // ← Добавь константу
+const MAX_ENERGY = 50; // ← Уже было изменено
 
 const GameBoard = () => {
   const [board, setBoard] = useState<number[][]>([]);
   const [score, setScore] = useState<number>(0);
   const [level, setLevel] = useState<number>(1);
   const [target, setTarget] = useState<number>(1000);
-  const [energy, setEnergy] = useState<number>(MAX_ENERGY); // ← Теперь 50
+  const [energy, setEnergy] = useState<number>(MAX_ENERGY); // ← Уже было изменено
+  const [moves, setMoves] = useState<number>(0); // ← Добавь это состояние
   const [selected, setSelected] = useState<{ row: number; col: number } | null>(null);
   const [removing, setRemoving] = useState<{ row: number; col: number }[]>([]);
 
@@ -32,14 +33,17 @@ const GameBoard = () => {
       setLevel(data.level);
       setTarget(data.target);
       setEnergy(data.energy);
+      // Восстанавливаем moves, если они были сохранены
+      setMoves(data.moves || 0);
     } else {
       generateBoard();
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('match3-progress', JSON.stringify({ score, level, target, energy }));
-  }, [score, level, target, energy]);
+    // Сохраняем moves тоже
+    localStorage.setItem('match3-progress', JSON.stringify({ score, level, target, energy, moves }));
+  }, [score, level, target, energy, moves]);
 
   useEffect(() => {
     //moveSoundRef.current = new Audio('/sounds/move.mp3');
@@ -80,6 +84,7 @@ const GameBoard = () => {
 
     if ((dx === 1 && dy === 0) || (dx === 0 && dy === 1)) {
       setEnergy(prev => prev - 1);
+      setMoves(prev => prev + 1); // ← Увеличивай при каждом ходе
       const newBoard = [...board];
       [newBoard[selected.row][selected.col], newBoard[row][col]] = [newBoard[row][col], newBoard[selected.row][selected.col]];
       setBoard(newBoard);
@@ -104,7 +109,8 @@ const GameBoard = () => {
 
           // Сохранить прогресс
           if (user) {
-            saveProgress({ score: score + points, level, energy: energy - 1 }, user.id);
+            // Передаём moves в saveProgress
+            saveProgress({ score: score + points, level, energy: energy - 1, moves: moves + 1 }, user.id);
           }
         }, 300);
       } else {
@@ -128,7 +134,7 @@ const GameBoard = () => {
         <div>Уровень: {level}</div>
         <div>Счёт: {score}</div>
         <div>Цель: {target}</div>
-        <div>Энергия: {energy}/{MAX_ENERGY}</div> {/* ← Измени на MAX_ENERGY */}
+        <div>Энергия: {energy}/{MAX_ENERGY}</div> {/* ← Уже было изменено */}
       </div>
       <div className="game-board">
         {board.map((row, i) =>
@@ -141,7 +147,8 @@ const GameBoard = () => {
           ))
         )}
       </div>
-      <DailyQuests />
+      {/* ← Передаём props в DailyQuests */}
+      <DailyQuests score={score} level={level} moves={moves} />
       <Achievements />
     </div>
   );
