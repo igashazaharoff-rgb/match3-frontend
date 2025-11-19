@@ -10,13 +10,20 @@ type Quest = {
   completed: boolean;
 };
 
+// Принимаем props
+type Props = {
+  score: number;
+  level: number;
+  moves: number;
+};
+
 const initialQuests: Quest[] = [
   { id: 'score', title: 'Набери 500 очков', description: 'Набери 500 очков за день', progress: 0, target: 500, reward: 100, completed: false },
   { id: 'levels', title: 'Пройди 3 уровня', description: 'Пройди 3 уровня', progress: 0, target: 3, reward: 150, completed: false },
   { id: 'moves', title: 'Сделай 50 ходов', description: 'Сделай 50 ходов', progress: 0, target: 50, reward: 200, completed: false },
 ];
 
-const DailyQuests = () => {
+const DailyQuests = ({ score, level, moves }: Props) => {
   const [quests, setQuests] = useState<Quest[]>(() => {
     const saved = localStorage.getItem('daily-quests');
     if (saved) {
@@ -29,6 +36,32 @@ const DailyQuests = () => {
     }
     return initialQuests;
   });
+
+  useEffect(() => {
+    // Обновляем прогресс заданий при изменении props
+    setQuests(prev => prev.map(quest => {
+      if (quest.id === 'score' && score >= quest.target && !quest.completed) {
+        return { ...quest, progress: score, completed: true };
+      }
+      if (quest.id === 'levels' && level >= quest.target && !quest.completed) {
+        return { ...quest, progress: level, completed: true };
+      }
+      if (quest.id === 'moves' && moves >= quest.target && !quest.completed) {
+        return { ...quest, progress: moves, completed: true };
+      }
+      // Обновляем прогресс, если он меньше текущего значения
+      if (quest.id === 'score' && score > quest.progress) {
+        return { ...quest, progress: score };
+      }
+      if (quest.id === 'levels' && level > quest.progress) {
+        return { ...quest, progress: level };
+      }
+      if (quest.id === 'moves' && moves > quest.progress) {
+        return { ...quest, progress: moves };
+      }
+      return quest;
+    }));
+  }, [score, level, moves]);
 
   useEffect(() => {
     const today = new Date().toDateString();
