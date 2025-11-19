@@ -8,12 +8,14 @@ import { useTelegram } from '../hooks/useTelegram';
 const BOARD_SIZE = 8;
 const COLORS = ['red', 'blue', 'green', 'yellow', 'purple', 'orange'];
 
+const MAX_ENERGY = 50; // ← Добавь константу
+
 const GameBoard = () => {
   const [board, setBoard] = useState<number[][]>([]);
   const [score, setScore] = useState<number>(0);
   const [level, setLevel] = useState<number>(1);
   const [target, setTarget] = useState<number>(1000);
-  const [energy, setEnergy] = useState<number>(50);
+  const [energy, setEnergy] = useState<number>(MAX_ENERGY); // ← Теперь 50
   const [selected, setSelected] = useState<{ row: number; col: number } | null>(null);
   const [removing, setRemoving] = useState<{ row: number; col: number }[]>([]);
 
@@ -126,7 +128,7 @@ const GameBoard = () => {
         <div>Уровень: {level}</div>
         <div>Счёт: {score}</div>
         <div>Цель: {target}</div>
-        <div>Энергия: {energy}/5</div>
+        <div>Энергия: {energy}/{MAX_ENERGY}</div> {/* ← Измени на MAX_ENERGY */}
       </div>
       <div className="game-board">
         {board.map((row, i) =>
@@ -146,5 +148,3 @@ const GameBoard = () => {
 };
 
 export default GameBoard;
-
-
