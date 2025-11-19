@@ -13,7 +13,7 @@ const GameBoard = () => {
   const [score, setScore] = useState<number>(0);
   const [level, setLevel] = useState<number>(1);
   const [target, setTarget] = useState<number>(1000);
-  const [energy, setEnergy] = useState<number>(5);
+  const [energy, setEnergy] = useState<number>(50);
   const [selected, setSelected] = useState<{ row: number; col: number } | null>(null);
   const [removing, setRemoving] = useState<{ row: number; col: number }[]>([]);
 
@@ -146,4 +146,5 @@ const GameBoard = () => {
 };
 
 export default GameBoard;
+
 
